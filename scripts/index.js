@@ -53,7 +53,7 @@ const renderActivities = () => {
             <img src="${activity.imgUrl}" alt="${activity.title}">
             <h3>${activity.title}</h3>
             <p>${activity.description}</p>
-            <button id="delete">Delete</button> 
+            <button class="delete" activity-id="${activity.id}">Delete</button> 
         `;
         activityItem.classList.add("card");
         return activityItem;
@@ -88,4 +88,20 @@ const addActivity = () => {
     renderActivities();
 }
 
+// Handler for deleting activities
+const deleteActivity = (id) => {
+    repository.deleteActivity(id);
+    
+    renderActivities();
+};
+
+// Event for adding activities
 submitButton.addEventListener('click', addActivity);
+
+// Event for deleting activities
+activitiesContainer.addEventListener('click', event => {
+    if (event.target.classList.contains('delete')) {
+        const id = Number(event.target.getAttribute('activity-id'));
+        deleteActivity(id);
+    }
+});
