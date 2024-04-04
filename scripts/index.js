@@ -38,7 +38,20 @@ const submitButton = document.getElementById("submit");
 // Select activities container
 const activitiesContainer = document.getElementById("submitted");
 
-// Handler for rendering activities
+// Function to convert activity to HTML
+const activityToHtml = ({ id, title, description, imgUrl }) => {
+    const activityItem = document.createElement("div");
+    activityItem.innerHTML = `
+        <img src="${imgUrl}" alt="${title}">
+        <h3>${title}</h3>
+        <p>${description}</p>
+        <button class="delete" activity-id="${id}">Delete</button> 
+    `;
+    activityItem.classList.add("card");
+    return activityItem;
+};
+
+// Function for rendering activities
 const renderActivities = () => {
     // - Empty activities container
     activitiesContainer.innerHTML = "";
@@ -47,26 +60,21 @@ const renderActivities = () => {
     const allActivities = repository.getAllActivities();
 
     // - Convert objects activity to html cards with map
-    const activityItems = allActivities.map(activity => {
-        const activityItem = document.createElement("div");
-        activityItem.innerHTML = `
-            <img src="${activity.imgUrl}" alt="${activity.title}">
-            <h3>${activity.title}</h3>
-            <p>${activity.description}</p>
-            <button class="delete" activity-id="${activity.id}">Delete</button> 
-        `;
-        activityItem.classList.add("card");
-        return activityItem;
-    });
+    const activityItems = allActivities.map(activity => activityToHtml(activity));
 
     // - Append all cards to activities container with forEach
-    activityItems.forEach(item => {
-        activitiesContainer.append(item);
-    });
+    activityItems.forEach(item => activitiesContainer.append(item));
+};
+
+// Function for deleting activities
+const deleteActivity = (id) => {
+    repository.deleteActivity(id);
+
+    renderActivities();
 };
 
 // Handler for adding activities from form
-const addActivity = () => {
+const addActivityHandler = () => {
     // - Obtain input values
     const title = titleInput.value;
     const description = descriptionInput.value;
@@ -88,15 +96,8 @@ const addActivity = () => {
     }
 }
 
-// Handler for deleting activities
-const deleteActivity = (id) => {
-    repository.deleteActivity(id);
-
-    renderActivities();
-};
-
 // Event for adding activities
-submitButton.addEventListener('click', addActivity);
+submitButton.addEventListener('click', addActivityHandler);
 
 // Event for deleting activities
 activitiesContainer.addEventListener('click', event => {
