@@ -38,9 +38,35 @@ const submitButton = document.getElementById("submit");
 // Select activities container
 const activitiesContainer = document.getElementById("submitted");
 
+// Handler for rendering activities
+const renderActivities = () => {
+    // - Empty activities container
+    activitiesContainer.innerHTML = "";
 
-// Handler (add activity + render)
-const addActivityHandler = () => {
+    // - Get all activities list
+    const allActivities = repository.getAllActivities();
+
+    // - Convert objects activity to html cards with map
+    const activityItems = allActivities.map(activity => {
+        const activityItem = document.createElement("div");
+        activityItem.innerHTML = `
+            <img src="${activity.imgUrl}" alt="${activity.title}">
+            <h3>${activity.title}</h3>
+            <p>${activity.description}</p>
+            <button id="delete">Delete</button> 
+        `;
+        activityItem.classList.add("card");
+        return activityItem;
+    });
+
+    // - Append all cards to activities container with forEach
+    activityItems.forEach(item => {
+        activitiesContainer.append(item);
+    });
+};
+
+// Handler for adding activities from form
+const addActivity = () => {
     // - Obtain input values
     const title = titleInput.value;
     const description = descriptionInput.value;
@@ -59,29 +85,7 @@ const addActivityHandler = () => {
     // - Add activity to repository
     repository.createActivity(null, title, description, imgUrl);
 
-    // - Empty activities container
-    activitiesContainer.innerHTML = "";
+    renderActivities();
+}
 
-    // - Get all activities list
-    const allActivities = repository.getAllActivities();
-
-    // - Convert objects activity to html cards with map
-    const activityItems = allActivities.map(activity => {
-        const activityItem = document.createElement("div");
-        activityItem.innerHTML = `
-            <img src="${activity.imgUrl}" alt="${activity.title}">
-            <h3>${activity.title}</h3>
-            <p>${activity.description}</p>
-            <button class="deleteBtn">Delete</button>
-        `;
-        activityItem.classList.add("card");
-        return activityItem;
-    });
-
-    // - Append all cards to card container with forEach
-    activityItems.forEach(item => {
-        activitiesContainer.append(item);
-    });
-};
-
-submitButton.addEventListener('click', addActivityHandler);
+submitButton.addEventListener('click', addActivity);
