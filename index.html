@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,14 +19,17 @@
 <body>
 
     <header>
-        <h1 class="animate__animated animate__lightSpeedInRight">Hi there, I'm Agostina 👋</h1>
+        <h1 class="animate__animated animate__lightSpeedInRight">Hi there, I'm <span class="highlight">→ Agostina</span>
+        </h1>
     </header>
 
     <section id="about-me">
         <h2>A Bit on Myself</h2>
         <p>34-year old professional with Master's Degree in Marketing, specialization in digital; have
             been working for the past 10 years in e-commerce and digital marketing. My hometown is Buenos Aires,
-            Argentina, but I live in Madrid, Spain since 2020. I'm seeking to join an inspiring team in which to start
+            Argentina, but I live in Madrid, Spain since 2020.
+        </p>
+        <p>I'm seeking to join an inspiring team in which to start
             my career as a <span class="highlight">→ Full Stack Developer</span>.</p>
     </section>
 
@@ -57,19 +61,16 @@
         <h2>My Favourite Activities</h2>
         <form id="form">
             <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
+            <input id="title" type="text" name="title" maxlength="20" required>
 
             <label for="description">Description:</label>
-            <textarea id="description" name="description" rows="4" cols="50" required></textarea>
+            <textarea id="description" name="description" rows="4" cols="50" maxlength="40" required></textarea>
 
-            <label for="imgUrl">URL:</label>
-            <input type="url" id="imgUrl" name="imgUrl" required>
+            <label for="imgUrl">Image URL:</label>
+            <input id="imgUrl" type="url" name="imgUrl" required>
 
-            <input type="submit" value="Submit">
+            <input id="submit" type="submit" value="Submit">
         </form>
-        <div id="submitted-activities">
-
-        </div>
     </section>
 
     <footer>
