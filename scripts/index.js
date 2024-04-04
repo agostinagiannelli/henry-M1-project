@@ -38,7 +38,7 @@ const submitButton = document.getElementById("submit");
 // Select activities container
 const activitiesContainer = document.getElementById("submitted");
 
-// Function to convert activity to HTML
+// Function for converting activity to HTML
 const activityToHtml = ({ id, title, description, imgUrl }) => {
     const activityItem = document.createElement("div");
     activityItem.innerHTML = `
@@ -69,7 +69,6 @@ const renderActivities = () => {
 // Function for deleting activities
 const deleteActivity = (id) => {
     repository.deleteActivity(id);
-
     renderActivities();
 };
 
@@ -93,8 +92,8 @@ const addActivityHandler = () => {
         repository.createActivity(null, title, description, imgUrl);
 
         renderActivities();
-    }
-}
+    };
+};
 
 // Event for adding activities
 submitButton.addEventListener('click', addActivityHandler);
@@ -104,5 +103,5 @@ activitiesContainer.addEventListener('click', event => {
     if (event.target.classList.contains('delete')) {
         const id = Number(event.target.getAttribute('activity-id'));
         deleteActivity(id);
-    }
+    };
 });
