@@ -75,23 +75,23 @@ const addActivity = () => {
     // - Check with if that values are completed + return alert if not
     if (!title || !description || !imgUrl) {
         alert("Please fill in all the values.");
+    } else {
+        // - Delete inputs from form
+        titleInput.value = "";
+        descriptionInput.value = "";
+        imgUrlInput.value = "";
+
+        // - Add activity to repository
+        repository.createActivity(null, title, description, imgUrl);
+
+        renderActivities();
     }
-
-    // - Delete inputs from form
-    titleInput.value = "";
-    descriptionInput.value = "";
-    imgUrlInput.value = "";
-
-    // - Add activity to repository
-    repository.createActivity(null, title, description, imgUrl);
-
-    renderActivities();
 }
 
 // Handler for deleting activities
 const deleteActivity = (id) => {
     repository.deleteActivity(id);
-    
+
     renderActivities();
 };
 
